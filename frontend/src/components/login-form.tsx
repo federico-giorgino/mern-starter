@@ -16,15 +16,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "@/lib/validations";
+import { loginSchema } from "@/lib/validations";
 
-export function RegisterForm() {
+export function LoginForm() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const form = useForm<RegisterValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -34,10 +34,10 @@ export function RegisterForm() {
   });
 
   const mutation = useMutation({
-    mutationFn: apiClient.register,
+    mutationFn: apiClient.login,
     onSuccess: async () => {
       toast({
-        description: "Registration Success!",
+        description: "Login Success!",
       });
       await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
       navigate("/");
@@ -58,42 +58,13 @@ export function RegisterForm() {
     <div className="flex items-center justify-center py-12">
       <div className="mx-auto grid gap-6 min-w-[350px]">
         <div className="grid gap-2 text-center">
-          <h1 className="text-3xl font-bold">Register</h1>
+          <h1 className="text-3xl font-bold">Login</h1>
           <h6 className="text-muted-foreground text-balance">
-            Create an account
+            Access your existing account
           </h6>
         </div>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-6 max-w-2xl w-full">
-            <div className="flex flex-col sm:flex-row gap-6">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First Name</FormLabel>
-                    <FormControl>
-                      <Input type="text" placeholder="John" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name</FormLabel>
-                    <FormControl>
-                      <Input type="text" placeholder="Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
             <FormField
               control={form.control}
               name="email"
@@ -101,7 +72,12 @@ export function RegisterForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john@doe.com" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="john@doe.com"
+                      {...field}
+                      className="max-w-3xl w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,24 +92,22 @@ export function RegisterForm() {
                   <FormControl>
                     <Input type="password" placeholder="********" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Must be at least 8 characters long.
-                  </FormDescription>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
 
             <Button type="submit" className="w-full">
-              Register
+              Login
             </Button>
           </form>
         </Form>
 
         <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="underline text-primary">
-            Login
+          Don't have an account?{" "}
+          <Link to="/register" className="underline text-primary">
+            Register
           </Link>
         </div>
       </div>

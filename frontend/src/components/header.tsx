@@ -26,7 +26,7 @@ export function Header() {
               to="/"
               className="text-2xl font-bold tracking-tighter flex items-center"
             >
-              Mern<span className="text-primary">Starter</span>
+              MERN<span className="text-primary">Starter</span>
             </Link>
             <div className="hidden md:flex space-x-4">
               {navLinks.map((link) => (

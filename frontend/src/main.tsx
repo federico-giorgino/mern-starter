@@ -1,9 +1,11 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./components/ui/theme-provider.tsx";
+import { Toaster } from "./components/ui/toaster.tsx";
+import { AppContextProvider } from "./context/app-context.tsx";
+import "./index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,9 +18,12 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <AppContextProvider>
+        <ThemeProvider>
+          <App />
+          <Toaster />
+        </ThemeProvider>
+      </AppContextProvider>
     </QueryClientProvider>
   </StrictMode>
 );

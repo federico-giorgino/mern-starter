@@ -8,7 +8,7 @@ import path from "path";
 import authRoutes from "./routes/auth";
 import userRoutes from "./routes/users";
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
+mongoose.connect(process.env.MONGO_CONNECTION_STRING as string);
 
 const app = express();
 app.use(cookieParser());

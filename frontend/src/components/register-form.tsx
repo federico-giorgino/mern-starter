@@ -50,24 +50,6 @@ export function RegisterForm() {
     },
   });
 
-  // react-query v3
-
-  // const mutation = useMutation(apiClient.register, {
-  //   onSuccess: async () => {
-  //     toast({
-  //       description: "Registration Success!",
-  //     });
-  //     await queryClient.invalidateQueries("validateToken");
-  //     navigate("/");
-  //   },
-  //   onError: (error: Error) => {
-  //     toast({
-  //       variant: "destructive",
-  //       description: error.message,
-  //     });
-  //   },
-  // });
-
   const onSubmit = form.handleSubmit((data) => {
     mutation.mutate(data);
   });

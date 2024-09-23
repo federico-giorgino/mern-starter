@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
+import * as apiClient from "../api-client";
 
 type AppContext = {
   isLoggedIn: boolean;
@@ -11,8 +12,14 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const { isError } = useQuery({
+    queryFn: apiClient.validateToken,
+    queryKey: ["validateToken"],
+    retry: false,
+  });
+
   return (
-    <AppContext.Provider value={{ isLoggedIn: false }}>
+    <AppContext.Provider value={{ isLoggedIn: !isError }}>
       {children}
     </AppContext.Provider>
   );

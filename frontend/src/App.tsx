@@ -9,6 +9,7 @@ import RegisterPage from "./pages/register";
 import LoginPage from "./pages/login";
 import { useAppContext } from "./context/app-context";
 import SecretPage from "./pages/secret";
+import { RootLayout } from "./layouts/root-layout";
 
 export default function App() {
   const { isLoggedIn } = useAppContext();
@@ -16,11 +17,41 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/"
+          element={
+            <RootLayout>
+              <HomePage />
+            </RootLayout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RootLayout>
+              <LoginPage />
+            </RootLayout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <RootLayout>
+              <RegisterPage />
+            </RootLayout>
+          }
+        />
 
-        {isLoggedIn && <Route path="secret" element={<SecretPage />} />}
+        {isLoggedIn && (
+          <Route
+            path="secret"
+            element={
+              <RootLayout>
+                <SecretPage />
+              </RootLayout>
+            }
+          />
+        )}
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -77,11 +77,21 @@ Follow these steps to set up your development environment:
 
 7. **Run end-to-end tests**
 
+   Navigate to the backend folder
+   Create a .env.e2e file in the backend directory and configure your MongoDB connection string(different one from the .env one so u can have different databases for testing and development), JWT secret key and Frontend URL:
+
+   ```bash
+   cd ../backend
+   touch .env.e2e
+   npm run e2e
+   ```
+
    Navigate to the e2e-tests directory and install Playwright:
 
    ```bash
    cd ../e2e-tests
-   npm install
+   npm init playwright@latest
+
    ```
 
    To run the tests, use:
